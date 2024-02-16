@@ -2,21 +2,19 @@ import heroes
 import villains
 from random import choice
 
-
 class Name(str): ...
 class Gun(str): ...
-class Info(str):...
 
 
 class Сharacteristics:
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.guns = ['laser', 'ak-47', 'blaster', 'fireball', 'magic']
 
-    def get_name(self) -> Name:
+    def get_name(self) -> None:
         raise NotImplementedError('Override the method')
 
-    def get_random_gun(self):
+    def get_random_gun(self) -> Gun:
         return choice(self.guns)
 
 
@@ -34,7 +32,7 @@ class SuperHero(Сharacteristics):
         return heroes.gen()
 
 
-class City:
+class CitiesInfo:
 
     def __init__(self, cities: list[str]) -> None:
         self.cities_list = cities
@@ -59,17 +57,16 @@ class City:
 
 class Media:
 
-    def get_information(self, city_name: str):
+    def get_information(self, city_name: str) -> None:
         raise NotImplementedError('Override the method')
 
 
 class TV(Media):
 
-    def __init__(self, tv_name, cities):
+    def __init__(self, tv_name: str, cities_info: CitiesInfo) -> None:
         self.type = 'TV'
         self.tv_name = tv_name
-        self.city = City(cities)
-        self.city.set_info_about_heroes_and_villains()
+        self.city = cities_info
 
     def get_information(self, city_name: str) -> str:
         villain = self.city.cities_info.get(city_name).get("villain")
@@ -80,8 +77,15 @@ class TV(Media):
             f'After PIU PIU of {superhero.get("name")} with {superhero.get("gun")} city was saved\n'
             f'Watch today on {self.tv_name}'
         )
+    
+
+class Newspaper(Media):
+    ...
 
 
 cities_list = ['Tokyo', 'NewYork', 'London', 'Paris', 'Moscow']
-show_must_go_on = TV(f'{choice(cities_list)} News', cities_list)
+cities = CitiesInfo(cities_list)
+cities.set_info_about_heroes_and_villains()
+
+show_must_go_on = TV(f'{choice(cities_list)} News', cities)
 print(show_must_go_on.get_information(choice(cities_list)))
