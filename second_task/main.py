@@ -83,5 +83,5 @@ class TV(Media):
 
 
 cities_list = ['Tokyo', 'NewYork', 'London', 'Paris', 'Moscow']
-show_must_go_on = TV('Moscow News', cities_list)
+show_must_go_on = TV(f'{choice(cities_list)} News', cities_list)
 print(show_must_go_on.get_information(choice(cities_list)))
