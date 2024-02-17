@@ -1,6 +1,9 @@
 import heroes
 import villains
 from random import choice
+from dataclasses import dataclass
+from datetime import datetime
+
 
 class Name(str): ...
 class Gun(str): ...
@@ -55,7 +58,31 @@ class CitiesInfo:
             }
 
 
+@dataclass
+class Message:
+    type_show: str
+    show_name: str
+    city: str
+    date: datetime
+    villain: str
+    villain_gun: str
+    superhero: str
+    superhero_gun: str
+
+    def get_message(self):
+        return (
+            f'Today {self.date} - <{self.villain}>\n'
+            f'Stands near a skyscraper in {self.city} and attack with {self.villain_gun}\n'
+            f'After PIU PIU of <{self.superhero}> with {self.superhero_gun}, city was saved\n'
+            f'Watch today on {self.type_show} - {self.show_name}'
+        )
+
+
 class Media:
+
+    @staticmethod
+    def get_date() -> datetime:
+        return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     def get_information(self, city_name: str) -> None:
         raise NotImplementedError('Override the method')
@@ -65,17 +92,21 @@ class TV(Media):
 
     def __init__(self, tv_name: str, cities_info: CitiesInfo) -> None:
         self.type = 'TV'
-        self.tv_name = tv_name
+        self.show_name = tv_name
         self.city = cities_info
 
     def get_information(self, city_name: str) -> str:
-        villain = self.city.cities_info.get(city_name).get("villain")
-        superhero = self.city.cities_info.get(city_name).get("superhero")
-        return (
-            f'{villain.get("name")} '
-            f'stands near a skyscraper in {city_name} and attack with {villain.get("gun")}\n'
-            f'After PIU PIU of {superhero.get("name")} with {superhero.get("gun")} city was saved\n'
-            f'Watch today on {self.tv_name}'
+        villain = self.city.cities_info.get(city_name).get('villain')
+        superhero = self.city.cities_info.get(city_name).get('superhero')
+        return Message(
+            self.type,
+            self.show_name,
+            city_name,
+            self.get_date(),
+            villain.get('name'),
+            villain.get('gun'),
+            superhero.get('name'),
+            superhero.get('gun')
         )
     
 
@@ -88,4 +119,5 @@ cities = CitiesInfo(cities_list)
 cities.set_info_about_heroes_and_villains()
 
 show_must_go_on = TV(f'{choice(cities_list)} News', cities)
-print(show_must_go_on.get_information(choice(cities_list)))
+info = show_must_go_on.get_information(choice(cities_list))
+print(info.get_message())
