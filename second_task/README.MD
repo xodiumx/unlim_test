@@ -24,3 +24,11 @@ Aliens abduct cows in the meadow
 PIU PIU
 Watch on the first channel: Chuck Norris saved the Kostroma!
 ```
+## Result
+Start `main.py` file, пример результата:
+```
+Today 2024-02-17 17:07:41 - <Mai Shen>
+Stands near a skyscraper in London and attack with magic
+After PIU PIU of <Mauler> with magic, city was saved
+Watch today on TV - Tokyo News
+```
