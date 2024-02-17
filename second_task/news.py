@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from datetime import datetime
 
+from colorama import Fore, Style
+
 from cities import CitiesInfo
 
 
@@ -16,10 +18,13 @@ class Message:
     superhero_gun: str
 
     def get_message(self):
+        date = Fore.YELLOW + self.date + Style.RESET_ALL
+        villain = Fore.RED + self.villain + Style.RESET_ALL
+        superhero = Fore.GREEN + self.superhero + Style.RESET_ALL
         return (
-            f'Today {self.date} - <{self.villain}>\n'
+            f'Today {date} - <{villain}>\n'
             f'Stands near a skyscraper in {self.city} and attack with {self.villain_gun}\n'
-            f'After PIU PIU of <{self.superhero}> with {self.superhero_gun}, city was saved\n'
+            f'After PIU PIU of <{superhero}> with {self.superhero_gun}, city was saved\n'
             f'Watch today on {self.type_show} - {self.show_name}'
         )
 
