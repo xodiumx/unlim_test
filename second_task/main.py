@@ -6,7 +6,7 @@ class Name(str): ...
 class Gun(str): ...
 
 
-class Сharacteristics:
+class PersonСharacteristics:
 
     def __init__(self) -> None:
         self.guns = ['laser', 'ak-47', 'blaster', 'fireball', 'magic']
@@ -18,17 +18,17 @@ class Сharacteristics:
         return choice(self.guns)
 
 
-class Villain(Сharacteristics):
+class Villain(PersonСharacteristics):
 
     def get_name(self) -> Name:
         """Get random villain name."""
         return villains.gen()
 
 
-class SuperHero(Сharacteristics):
+class SuperHero(PersonСharacteristics):
 
     def get_name(self) -> Name:
-        """Get random villain name."""
+        """Get random superhero name."""
         return heroes.gen()
 
 
